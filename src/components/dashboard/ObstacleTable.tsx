@@ -43,7 +43,7 @@ interface ObstacleTableProps {
 }
 
 export function ObstacleTable({ onViewOnMap }: ObstacleTableProps) {
-  const { obstacles, updateObstacleStatus, isLoading } = useObstacles();
+  const { obstacles, updateObstacleStatus, deleteObstacle, isLoading } = useObstacles();
   const [search, setSearch] = useState('');
   const [severityFilter, setSeverityFilter] = useState<SeverityLevel | 'all'>('all');
   const [statusFilter, setStatusFilter] = useState<ObstacleStatus | 'all'>('all');
@@ -321,7 +321,7 @@ export function ObstacleTable({ onViewOnMap }: ObstacleTableProps) {
                         <DropdownMenuItem
                           className="text-destructive focus:text-destructive"
                           onClick={() => {
-                            updateObstacleStatus(obstacle.id, 'resolved');
+                            deleteObstacle(obstacle.id);
                           }}
                         >
                           <Filter className="w-4 h-4 mr-2" /> Mark as False Alarm

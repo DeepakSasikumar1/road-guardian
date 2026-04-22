@@ -13,6 +13,7 @@ interface ObstacleContextType {
   selectedObstacle: Obstacle | null;
   setSelectedObstacle: (obstacle: Obstacle | null) => void;
   updateObstacleStatus: (id: string, status: Obstacle['status']) => void;
+  deleteObstacle: (id: string) => void;
   markAlertAsRead: (id: string) => void;
   markAllAlertsAsRead: () => void;
   unreadAlertCount: number;
@@ -50,6 +51,7 @@ export function ObstacleProvider({ children }: { children: React.ReactNode }) {
     loading: obstaclesLoading,
     error: obstaclesError,
     updateObstacleStatusInDB,
+    deleteObstacleFromDB,
   } = useObstacleData();
 
   const {
@@ -72,6 +74,13 @@ export function ObstacleProvider({ children }: { children: React.ReactNode }) {
       updateObstacleStatusInDB(id, status);
     },
     [updateObstacleStatusInDB]
+  );
+  
+  const deleteObstacle = useCallback(
+    (id: string) => {
+      deleteObstacleFromDB(id);
+    },
+    [deleteObstacleFromDB]
   );
 
   // ── Alert actions
@@ -120,6 +129,7 @@ export function ObstacleProvider({ children }: { children: React.ReactNode }) {
         selectedObstacle,
         setSelectedObstacle,
         updateObstacleStatus,
+        deleteObstacle,
         markAlertAsRead,
         markAllAlertsAsRead,
         unreadAlertCount,

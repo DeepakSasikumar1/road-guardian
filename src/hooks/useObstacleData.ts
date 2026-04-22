@@ -30,6 +30,7 @@ interface UseObstacleDataReturn {
   error: string | null;
   refetch: () => Promise<void>;
   updateObstacleStatusInDB: (id: string, status: Obstacle['status']) => Promise<void>;
+  deleteObstacleFromDB: (id: string) => Promise<void>;
 }
 
 export function useObstacleData(): UseObstacleDataReturn {
@@ -156,5 +157,35 @@ export function useObstacleData(): UseObstacleDataReturn {
     [fetchObstacles, toast]
   );
 
-  return { obstacles, loading, error, refetch: fetchObstacles, updateObstacleStatusInDB };
+  const deleteObstacleFromDB = useCallback(
+    async (id: string) => {
+      // Optimistic delete
+      setObstacles((prev) => prev.filter((o) => o.id !== id));
+
+      try {
+        const { error: deleteError } = await supabase
+          .from('obstacles')
+          .delete()
+          .eq('id', id);
+
+        if (deleteError) throw deleteError;
+        
+        toast({
+          title: 'False Alarm Removed',
+          description: 'The invalid detection has been permanently deleted.',
+        });
+      } catch (err: any) {
+        console.error('[useObstacleData] Delete error:', err);
+        toast({
+          title: 'Deletion Failed',
+          description: 'Could not delete the false detection.',
+          variant: 'destructive',
+        });
+        fetchObstacles();
+      }
+    },
+    [fetchObstacles, toast]
+  );
+
+  return { obstacles, loading, error, refetch: fetchObstacles, updateObstacleStatusInDB, deleteObstacleFromDB };
 }
