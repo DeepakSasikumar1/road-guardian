@@ -32,10 +32,8 @@ function calculateStats(obstacles: Obstacle[], alerts: Alert[]): DashboardStats 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const todayObstacles = obstacles.filter((o) => o.detectedAt >= today);
-
   return {
-    totalObstacles: todayObstacles.length,
+    totalObstacles: obstacles.length,
     highSeverity: obstacles.filter((o) => o.severity === 'high' && o.status !== 'resolved').length,
     mediumSeverity: obstacles.filter((o) => o.severity === 'medium' && o.status !== 'resolved').length,
     lowSeverity: obstacles.filter((o) => o.severity === 'low' && o.status !== 'resolved').length,

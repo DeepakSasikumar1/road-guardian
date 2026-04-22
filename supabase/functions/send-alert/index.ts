@@ -114,7 +114,7 @@ const handler = async (req: Request): Promise<Response> => {
                   <a href="https://www.google.com/maps/search/?api=1&query=${alertData.location.lat},${alertData.location.lng}" class="btn btn-primary">
                     📍 OPEN IN GOOGLE MAPS
                   </a>
-                  <a href="https://roadwatch-ai.vercel.app/login" class="btn btn-secondary">
+                  <a href="https://roadwatch-ai.vercel.app" class="btn btn-secondary">
                     🏠 LOGIN TO COMMAND CENTER
                   </a>
                 </div>
@@ -275,20 +275,20 @@ const handler = async (req: Request): Promise<Response> => {
       }
     }
 
-        // Log alert to database
-        const { data: alertRecord, error: insertError } = await supabase
-          .from('alerts')
-          .insert({
-            alert_id: alertId,
-            obstacle_id: alertData.obstacleId || null,
-            type: alertData.severity === 'high' ? 'high_severity' : 'new_detection',
-            message: message,
-            status: 'sent',
-            email_sent: emailSent,
-            sms_sent: smsSent || true, // Default to true in simulation/mock mode for visibility
-          })
-          .select()
-          .single();
+    // Log alert to database
+    const { data: alertRecord, error: insertError } = await supabase
+      .from('alerts')
+      .insert({
+        alert_id: alertId,
+        obstacle_id: alertData.obstacleId || null,
+        type: alertData.severity === 'high' ? 'high_severity' : 'new_detection',
+        message: message,
+        status: 'sent',
+        email_sent: emailSent,
+        sms_sent: smsSent || true, // Default to true in simulation/mock mode for visibility
+      })
+      .select()
+      .single();
 
     if (insertError) {
       console.error("[ALERT SYSTEM] Error saving alert log:", insertError);

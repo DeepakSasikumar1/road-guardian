@@ -60,7 +60,7 @@ export default function Dashboard() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <StatCard title="Total Today" value={stats.totalObstacles} icon={TrendingUp} variant="primary" />
+          <StatCard title="Total Detections" value={stats.totalObstacles} icon={TrendingUp} variant="primary" />
           <StatCard title="High Severity" value={stats.highSeverity} icon={AlertTriangle} variant="high" trend={{ value: 12, isUp: true }} />
           <StatCard title="Medium Severity" value={stats.mediumSeverity} icon={AlertCircle} variant="medium" />
           <StatCard title="Low Severity" value={stats.lowSeverity} icon={Info} variant="low" />
