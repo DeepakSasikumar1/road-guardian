@@ -51,11 +51,12 @@ export default function ResetPassword() {
       });
 
       if (error) {
-        setError(error.message);
+        const errorMsg = typeof error === 'string' ? error : error.message || JSON.stringify(error);
+        setError(errorMsg);
         toast({
           variant: "destructive",
           title: 'Update Failed',
-          description: error.message,
+          description: errorMsg,
         });
       } else {
         setIsSuccess(true);

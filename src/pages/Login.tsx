@@ -78,11 +78,11 @@ export default function Login() {
       });
 
       if (error) {
-        let msg = error.message;
+        let msg = typeof error === 'string' ? error : error.message || JSON.stringify(error);
         if (msg.includes('rate limit')) {
           msg = 'Too many requests. Please wait a few minutes before trying again.';
-        } else if (msg.includes('Email provider')) {
-          msg = 'Email service is currently unavailable. Please check Supabase SMTP settings.';
+        } else if (msg.includes('Email provider') || msg === '{}') {
+          msg = 'Email service configuration error. Please check Supabase SMTP settings or Site URL configuration.';
         }
         setError(msg);
         toast({
