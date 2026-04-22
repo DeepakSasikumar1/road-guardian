@@ -114,7 +114,7 @@ const handler = async (req: Request): Promise<Response> => {
                   <a href="https://www.google.com/maps/search/?api=1&query=${alertData.location.lat},${alertData.location.lng}" class="btn btn-primary">
                     📍 OPEN IN GOOGLE MAPS
                   </a>
-                  <a href="https://roadwatch-ai.vercel.app" class="btn btn-secondary">
+                  <a href="https://roadwatch-ai.vercel.app/login" class="btn btn-secondary">
                     🏠 LOGIN TO COMMAND CENTER
                   </a>
                 </div>
