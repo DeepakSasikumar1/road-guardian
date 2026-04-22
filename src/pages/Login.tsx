@@ -179,8 +179,8 @@ export default function Login() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-md space-y-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
+        <div className="w-full max-w-md space-y-6 sm:space-y-8">
           <div className="lg:hidden">
             <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6">
               <ArrowLeft className="w-4 h-4" />
