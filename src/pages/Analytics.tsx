@@ -83,7 +83,7 @@ export default function Analytics() {
         subtitle="Statistical breakdown of road obstacles and resolution efficiency"
       />
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         {isLoading && (
           <div className="flex items-center gap-3 p-4 rounded-xl bg-primary/10 border border-primary/20 text-primary text-sm animate-pulse">
             <Loader2 className="w-4 h-4 animate-spin shrink-0" />
