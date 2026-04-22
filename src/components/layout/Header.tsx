@@ -1,4 +1,4 @@
-import { Search, RefreshCw, AlertTriangle, AlertCircle, Info, MapPin } from 'lucide-react';
+import { Search, RefreshCw, AlertTriangle, AlertCircle, Info, MapPin, Menu } from 'lucide-react';
 import { useObstacles } from '@/context/ObstacleContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { Sidebar } from './Sidebar';
 
 interface HeaderProps {
   title: string;
@@ -63,10 +65,23 @@ export function Header({ title, subtitle }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-background/80 backdrop-blur-sm border-b border-border flex items-center justify-between px-6">
-      <div>
-        <h1 className="text-xl font-bold text-foreground">{title}</h1>
-        {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
+    <header className="sticky top-0 z-30 h-16 bg-background/80 backdrop-blur-sm border-b border-border flex items-center justify-between px-4 md:px-6">
+      <div className="flex items-center gap-2">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden shrink-0">
+              <Menu className="w-5 h-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="p-0 w-64">
+            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            <Sidebar className="w-full h-full border-r-0" />
+          </SheetContent>
+        </Sheet>
+        <div>
+          <h1 className="text-xl font-bold text-foreground line-clamp-1">{title}</h1>
+          {subtitle && <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">{subtitle}</p>}
+        </div>
       </div>
 
       <div className="flex items-center gap-4">
